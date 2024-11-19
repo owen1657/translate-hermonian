@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translation Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .output {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Translation Website</h1>
+    <p>Type a sentence in English to translate into your language:</p>
+    <textarea id="inputText" placeholder="Type here..."></textarea>
+    <button onclick="translate()">Translate</button>
+    <div class="output">
+        <h2>Translation:</h2>
+        <p id="outputText">Your translation will appear here...</p>
+    </div>
+
+    <script>
+        // Vocabulary for word-based translation
+        const vocabulary = {
+            "i": "Loc", "you": "Mos", "he": "San", "she": "San", "it": "San",
+            "we": "Co Mos", "they": "San Mos", "you (plural)": "Mos Co", "itself": "San San",
+            "what": "Chus Cha", "who": "Ti Cha", "where": "Co Cha", "when": "So Cha",
+            "why": "Tri Cha", "how": "Op Cha", "and": "So", "but": "Ma", "or": "Chus",
+            "in": "Mos", "on": "So Ma", "with": "Co", "for": "Co", "under": "Ma So", "above": "So Loc",
+            "thank": "Loc Cha", "you are": "Mos Cha", "i am": "Loc Cha", "happy": "Op Tri"
+            // Add more words here from the vocabulary list
+        };
+
+        // Alphabet for letter-based translation
+        const alphabet = {
+            "a": "chi", "b": "lee", "c": "chus", "d": "la", "e": "cha", "f": "bo",
+            "g": "po", "h": "op", "i": "loc", "j": "gee", "k": "tok", "l": "ti",
+            "m": "tam", "n": "ma", "o": "so", "p": "lom", "q": "tom", "r": "san",
+            "s": "pu", "t": "soc", "u": "mos", "v": "stref", "w": "co", "x": "tro",
+            "y": "tri", "z": "zam"
+        };
+
+        // Function to translate input text
+        function translate() {
+            const inputText = document.getElementById("inputText").value.toLowerCase().trim();
+            const words = inputText.split(/\s+/);
+            const translatedWords = words.map(word => {
+                if (vocabulary[word]) {
+                    // Translate word if it exists in the vocabulary
+                    return vocabulary[word];
+                } else {
+                    // Translate word letter-by-letter if it doesn't exist in the vocabulary
+                    return [...word].map(letter => alphabet[letter] || letter).join(" ");
+                }
+            });
+            // Display the translated text
+            document.getElementById("outputText").innerText = translatedWords.join(" ");
+        }
+    </script>
+</body>
+</html>
